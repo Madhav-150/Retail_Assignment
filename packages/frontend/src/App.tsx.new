@@ -1,0 +1,178 @@
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, Link, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import LoginForm from './components/auth/LoginForm';
+import SignupForm from './components/auth/SignupForm';
+import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
+import Dashboard from './pages/Dashboard';
+import { FiHome, FiLayers, FiSettings, FiUsers, FiLogOut, FiChevronRight, FiMenu, FiX } from 'react-icons/fi';
+import { useState } from 'react';
+import './App.css';
+
+// Loading component
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+);
+
+// Private Route component
+const PrivateRoute = () => {
+  const { isAuthenticated, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <DashboardLayout />;
+};
+
+// Public Route component (for auth pages when already logged in)
+const PublicRoute = () => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <AuthLayout />;
+};
+
+// Home page component (redirects to dashboard if logged in)
+const HomePage = () => {
+  return <Navigate to="/dashboard" replace />;
+};
+
+// Auth Layout
+const AuthLayout = () => (
+  <div className="auth-container">
+    <div className="auth-card">
+      <div className="auth-header">
+        <svg className="auth-logo" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+        <h2>Welcome Back</h2>
+        <p className="text-gray-600">Please sign in to your account</p>
+      </div>
+      <Outlet />
+    </div>
+  </div>
+);
+
+// Dashboard Layout with Sidebar
+const DashboardLayout = () => {
+  const { logout } = useAuth();
+  const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isActive = (path: string) => location.pathname.startsWith(path);
+
+  const navItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: <FiHome size={20} /> },
+    { name: 'Projects', path: '/projects', icon: <FiLayers size={20} /> },
+    { name: 'Team', path: '/team', icon: <FiUsers size={20} /> },
+    { name: 'Settings', path: '/settings', icon: <FiSettings size={20} /> },
+  ];
+
+  return (
+    <div className="dashboard-layout">
+      {/* Mobile menu button */}
+      <button 
+        className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-md text-gray-700 hover:bg-gray-100"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+      </button>
+
+      {/* Sidebar */}
+      <aside className={`sidebar ${mobileMenuOpen ? 'block fixed inset-y-0 left-0 z-40 w-64' : 'hidden md:block'}`}>
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h1 className="text-xl font-bold text-primary">Retail Media</h1>
+        </div>
+        <nav className="mt-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span className="flex items-center">
+                <span className="mr-3">{item.icon}</span>
+                <span>{item.name}</span>
+              </span>
+              <FiChevronRight className="ml-auto" />
+            </Link>
+          ))}
+          <button
+            onClick={() => {
+              logout();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left nav-link text-red-600 hover:bg-red-50 hover:text-red-700"
+          >
+            <span className="flex items-center">
+              <FiLogOut size={20} className="mr-3" />
+              <span>Logout</span>
+            </span>
+          </button>
+        </nav>
+      </aside>
+
+      {/* Main content */}
+      <main className="main-content">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Outlet />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <ToastContainer 
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          toastClassName="!bg-white !text-gray-800 !shadow-lg !rounded-lg"
+          bodyClassName="!p-4"
+          progressClassName="!bg-primary"
+        />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          
+          {/* Public routes */}
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+          </Route>
+
+          {/* Protected routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            {/* Add more protected routes here */}
+          </Route>
+
+          {/* 404 route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}
+
+export default App;

@@ -1,0 +1,21 @@
+{
+  "name": "retail-media-creative-builder",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:frontend": "yarn workspace @retail-media/frontend dev",
+    "dev:backend": "yarn workspace @retail-media/backend dev",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "prisma": "^7.0.1",
+    "typescript": "^5.0.0"
+  }
+}

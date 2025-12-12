@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: retail-media-backend
+    env: node
+    rootDir: .
+    buildCommand: yarn && yarn workspace @retail-media/backend build
+    # Using 'node' directly to ensure we run the compiled JS from the root context where node_modules can be found
+    startCommand: node packages/backend/dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: retail-media-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        sync: false # You must enter your Netlify URL here in the Render Dashboard
+
+databases:
+  - name: retail-media-db
+    databaseName: retail_media
+    user: retail_media_user
+    plan: free # Render offers a free Postgres tier (expires after 30 days of inactivity, good for hackathons)

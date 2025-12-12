@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  name              String?
+  email             String    @unique
+  password          String
+  resetToken        String?   @unique
+  resetTokenExpires DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  brands            Brand[]
+  projects          Project[]
+  sessions          Session[]
+  settings          String?   // Storing as JSON string
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken String   @unique
+  userAgent    String?
+  ipAddress    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Brand {
+  id           Int       @id @default(autoincrement())
+  name         String
+  description  String?
+  logoUrl      String?
+  colorPalette String?   // Storing as comma-separated hex colors
+  fonts        String?   // Storing as JSON string
+  rules        String?   // Storing as JSON string
+  userId       Int
+  user         User      @relation(fields: [userId], references: [id])
+  projects     Project[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  settings    String?   // Storing as JSON string
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  brandId     Int
+  brand       Brand     @relation(fields: [brandId], references: [id])
+  exports     Export[]
+  layouts     Layout[]
+  assets      Asset[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Layout {
+  id         Int      @id @default(autoincrement())
+  name       String
+  data       String   // Storing as JSON string
+  previewUrl String?  // URL to preview image
+  projectId  Int
+  project    Project  @relation(fields: [projectId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Export {
+  id         Int      @id @default(autoincrement())
+  format     String   // png, jpg, pdf, etc.
+  quality    Int?     // 1-100
+  sizes      String   // Storing as JSON string
+  status     String   @default("pending") // pending, processing, completed, failed
+  projectId  Int
+  project    Project  @relation(fields: [projectId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  completedAt DateTime?
+}
+
+model Asset {
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  project   Project  @relation(fields: [projectId], references: [id])
+  type      String   // image, video, document, etc.
+  url       String
+  width     Int?
+  height    Int?
+  size      Int?     // Size in bytes
+  mimeType  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
