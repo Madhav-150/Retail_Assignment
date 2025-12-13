@@ -29,10 +29,7 @@ export const protect = async (req: Request, res: Response, next: NextFunction) =
       select: {
         id: true,
         name: true,
-        email: true,
-        role: true,
-        avatarUrl: true,
-        passwordHash: false
+        email: true
       }
     });
 

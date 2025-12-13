@@ -34,7 +34,7 @@ A comprehensive dashboard application for tracking sales, user activity, and man
 ## Prerequisites
 
 - Node.js 18+
-- npm, pnpm, or yarn
+- yarn
 
 ## Getting Started
 
@@ -45,17 +45,9 @@ A comprehensive dashboard application for tracking sales, user activity, and man
    ```
 
 2. **Install dependencies**
+   We use Yarn workspaces, so you only need to run install once in the root directory.
    ```bash
-   # Install root dependencies (if any)
-   npm install
-
-   # Install Backend dependencies
-   cd packages/backend
-   npm install
-
-   # Install Frontend dependencies
-   cd ../frontend
-   npm install
+   yarn install
    ```
 
 3. **Set up Environment Variables**
@@ -83,14 +75,12 @@ A comprehensive dashboard application for tracking sales, user activity, and man
 
    **Backend**:
    ```bash
-   cd packages/backend
-   npm run dev
+   yarn workspace @retail-media/backend dev
    ```
 
    **Frontend**:
    ```bash
-   cd packages/frontend
-   npm run dev
+   yarn workspace @retail-media/frontend dev
    ```
 
 6. **Access the App**

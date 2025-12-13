@@ -17,7 +17,7 @@ This is the frontend application for the Retail Media Creative Builder, built wi
 
 1. **Install Dependencies**
    ```bash
-   npm install
+   yarn install
    ```
 
 2. **Environment Setup**
@@ -28,18 +28,18 @@ This is the frontend application for the Retail Media Creative Builder, built wi
 
 3. **Run Development Server**
    ```bash
-   npm run dev
+   yarn dev
    ```
    The app will run at [http://localhost:3000](http://localhost:3000).
 
 4. **Build for Production**
    ```bash
-   npm run build
+   yarn build
    ```
 
 5. **Linting**
    ```bash
-   npm run lint
+   yarn lint
    ```
 
 ## Project Structure
