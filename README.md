@@ -113,6 +113,7 @@ retail-media-dashboard/
 You can download the exported report file:
 [frontend.pdf](https://github.com/user-attachments/files/24142056/frontend.pdf)
 
+<img width="1888" height="868" alt="image" src="https://github.com/user-attachments/assets/899d7973-2cf4-4921-ad87-135a6cbb11a4" />
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM](https://github.com/user-attachments/assets/6edde738-0346-4db2-8d00-d826a1f7ee47)
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM (1)](https://github.com/user-attachments/assets/f489c8b3-7ed9-4ed7-9a77-db90421a9014)
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM (2)](https://github.com/user-attachments/assets/3ee8740e-5b95-47ee-ae6f-10d5f9414957)
