@@ -118,7 +118,6 @@ You can download the exported report file:
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM (2)](https://github.com/user-attachments/assets/3ee8740e-5b95-47ee-ae6f-10d5f9414957)
 ![WhatsApp Image 2025-12-13 at 5 56 59 PM](https://github.com/user-attachments/assets/4c431df6-9b18-4f94-9575-229ec2ce281a)
 ![WhatsApp Image 2025-12-13 at 5 57 41 PM](https://github.com/user-attachments/assets/7720ca83-e7df-484a-8800-b633590be71a)
-![WhatsApp Image 2025-12-13 at 5 57 41 PM](https://github.com/user-attachments/assets/f2fba421-a23a-4dfb-85fd-9c625f0b4d02)
 ![WhatsApp Image 2025-12-13 at 5 58 49 PM](https://github.com/user-attachments/assets/8a5859e3-a4c8-4fb6-b536-10f418a9f024)
 ![WhatsApp Image 2025-12-13 at 5 59 35 PM](https://github.com/user-attachments/assets/77eb68f4-788c-4c42-ad60-4a24cc5c2406)
 
