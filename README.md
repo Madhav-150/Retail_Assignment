@@ -110,7 +110,9 @@ retail-media-dashboard/
 
 ![WhatsApp Image 2025-12-13 at 5 51 40 PM](https://github.com/user-attachments/assets/fe51a178-a969-41b5-a1a6-0431c13f4073)
 ![WhatsApp Image 2025-12-13 at 5 52 29 PM](https://github.com/user-attachments/assets/a28e48ff-aa60-4d47-9ace-45cdcd5d8438)
+You can download the exported report file:
 [frontend.pdf](https://github.com/user-attachments/files/24142056/frontend.pdf)
+
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM](https://github.com/user-attachments/assets/6edde738-0346-4db2-8d00-d826a1f7ee47)
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM (1)](https://github.com/user-attachments/assets/f489c8b3-7ed9-4ed7-9a77-db90421a9014)
 ![WhatsApp Image 2025-12-13 at 5 55 54 PM (2)](https://github.com/user-attachments/assets/3ee8740e-5b95-47ee-ae6f-10d5f9414957)
